@@ -59,9 +59,9 @@ namespace Vaquinha.Unit.Tests.DomainTests
         [Theory]
         [InlineData(0)]
         [InlineData(-10)]
-        [InlineData(-5)]
-        [InlineData(-10.20)]
+        [InlineData(-1024.20)]
         [InlineData(-55.4)]
+        // [InlineData(100)] // teste dando false por ser maior que 0
         [InlineData(-0.1)]
         [Trait("Doacao", "Doacao_ValoresDoacaoMenorIgualZero_DoacaoInvalida")]
         public void Doacao_ValoresDoacaoMenorIgualZero_DoacaoInvalida(double valorDoacao)
@@ -81,16 +81,16 @@ namespace Vaquinha.Unit.Tests.DomainTests
         }
 
         [Theory]
+        // [InlineData(2500.50)] // valor invalido porque o teste esperava uma valor maior que 4500
         [InlineData(25000)]
-        [InlineData(5500.50)]
         [InlineData(5000.1)]
-        [InlineData(4505)]
         [InlineData(4500.1)]
+        [InlineData(4505)]
         [Trait("Doacao", "Doacao_ValoresDoacaoMaiorLimite_DoacaoInvalida")]
         public void Doacao_ValoresDoacaoMaiorLimite_DoacaoInvalida(double valorDoacao)
         {
             // Arrange
-            const bool EXCEDER_MAX_VALOR_DOACAO = true;
+            // const bool EXCEDER_MAX_VALOR_DOACAO = true;
             var doacao = _doacaoFixture.DoacaoValida(false, valorDoacao);
             doacao.AdicionarEnderecoCobranca(_enderecoFixture.EnderecoValido());
             doacao.AdicionarFormaPagamento(_cartaoCreditoFixture.CartaoCreditoValido());
